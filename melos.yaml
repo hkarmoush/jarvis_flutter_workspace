@@ -1,0 +1,14 @@
+name: jarvis_flutter_workspace
+
+packages:
+  - "packages/**"
+  - "apps/**"
+
+scripts:
+  analyze: flutter analyze
+  test: flutter test
+  format: flutter format .
+  clean: flutter clean
+
+dev_dependencies:
+  melos: ^7.0.0-dev.8 

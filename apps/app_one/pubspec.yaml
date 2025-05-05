@@ -1,0 +1,35 @@
+name: app_one
+description: A Flutter application using the core packages
+version: 0.1.0
+
+environment:
+  sdk: ">=3.0.0 <4.0.0"
+  flutter: ">=3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  core_ui:
+    path: ../../packages/core_ui
+  core_utils:
+    path: ../../packages/core_utils
+  core_network:
+    path: ../../packages/core_network
+  core_state:
+    path: ../../packages/core_state
+  core_storage:
+    path: ../../packages/core_storage
+  core_router:
+    path: ../../packages/core_router
+  core_localization:
+    path: ../../packages/core_localization
+  core_analytics:
+    path: ../../packages/core_analytics
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.0
+
+flutter:
+  uses-material-design: true 
