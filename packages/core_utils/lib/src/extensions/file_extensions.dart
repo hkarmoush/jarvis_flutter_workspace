@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:path/path.dart' as path;
+import 'dart:typed_data';
 
 extension FileExtensions on File {
   /// Returns the file extension
@@ -109,5 +110,74 @@ extension FileExtensions on File {
     final destination = File(destinationPath);
     await destination.create(recursive: true);
     return rename(destination.path);
+  }
+
+  /// Checks if the file exists.
+  Future<bool> existsAsync() => exists();
+
+  /// Deletes the file if it exists, returns true if deleted.
+  Future<bool> deleteIfExists() async {
+    if (await exists()) {
+      await delete();
+      return true;
+    }
+    return false;
+  }
+
+  /// Reads the file content as a string.
+  Future<String> readAsStringAsync() => readAsString();
+
+  /// Reads the file content as bytes.
+  Future<Uint8List> readAsBytesAsync() => readAsBytes();
+
+  /// Writes [content] to the file using [mode], returns the file.
+  Future<File> writeString(String content,
+      {FileMode mode = FileMode.write}) async {
+    return writeAsString(content, mode: mode);
+  }
+
+  /// Writes [bytes] to the file using [mode], returns the file.
+  Future<File> writeBytes(Uint8List bytes,
+      {FileMode mode = FileMode.write}) async {
+    return writeAsBytes(bytes, mode: mode);
+  }
+
+  /// Returns the file name (with extension).
+  String get fileName => path.basename(this.path);
+
+  /// Returns the parent directory path of the file.
+  String get parentDirectory => path.dirname(this.path);
+
+  /// Renames the file's extension to [newExtension], returns the new file.
+  Future<File> withExtension(String newExtension) {
+    final dir = path.dirname(this.path);
+    final name = path.basenameWithoutExtension(this.path) + newExtension;
+    final newPath = path.join(dir, name);
+    return rename(newPath);
+  }
+
+  /// Appends [content] to the file using the given [mode].
+  Future<File> appendString(String content, {FileMode mode = FileMode.append}) {
+    return writeAsString(content, mode: mode);
+  }
+
+  /// Appends [bytes] to the file using the given [mode].
+  Future<File> appendBytes(Uint8List bytes, {FileMode mode = FileMode.append}) {
+    return writeAsBytes(bytes, mode: mode);
+  }
+
+  /// Reads the file content as a list of lines.
+  Future<List<String>> readLines() async {
+    final text = await readAsString();
+    return text.split('\n');
+  }
+
+  /// Returns true if the file is hidden (filename starts with a dot).
+  bool get isHidden => path.basename(this.path).startsWith('.');
+
+  /// Ensures the parent directory exists, creating it if necessary.
+  Future<void> ensureParentDirExists() async {
+    final dir = Directory(path.dirname(this.path));
+    await dir.create(recursive: true);
   }
 }
