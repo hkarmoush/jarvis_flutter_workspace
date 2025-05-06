@@ -83,7 +83,7 @@ extension IntExtensions on int {
 extension DoubleExtensions on double {
   /// Rounds the number to the specified decimal places
   double roundToDecimalPlaces(int places) {
-    final factor = 10.0 * places;
+    final factor = math.pow(10, places).toDouble();
     return (this * factor).round() / factor;
   }
 
