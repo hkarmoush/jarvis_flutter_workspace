@@ -1,24 +1,26 @@
 extension DateTimeExtensions on DateTime {
   /// Returns true if the date is today
-  bool get isToday {
-    final now = DateTime.now();
+  bool isToday([DateTime? now]) {
+    now ??= DateTime.now();
     return year == now.year && month == now.month && day == now.day;
   }
 
   /// Returns true if the date is yesterday
-  bool get isYesterday {
-    final yesterday = DateTime.now().subtract(const Duration(days: 1));
+  bool isYesterday([DateTime? now]) {
+    now ??= DateTime.now();
+    final yesterday = now.subtract(const Duration(days: 1));
     return year == yesterday.year &&
         month == yesterday.month &&
         day == yesterday.day;
   }
 
   /// Returns the date in a human-readable format
-  String get humanReadable {
-    if (isToday) return 'Today';
-    if (isYesterday) return 'Yesterday';
+  String humanReadable([DateTime? now]) {
+    now ??= DateTime.now();
+    if (isToday(now)) return 'Today';
+    if (isYesterday(now)) return 'Yesterday';
 
-    final difference = DateTime.now().difference(this);
+    final difference = now.difference(this);
     if (difference.inDays < 7) {
       return '${difference.inDays} days ago';
     }
