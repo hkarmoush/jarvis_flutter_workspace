@@ -1,29 +1,23 @@
-extension MapExtensions<K, V> on Map<K, V> {
-  /// Returns a new map with null values removed
-  Map<K, V> removeNullValues() {
-    return Map<K, V>.fromEntries(
-      entries.where((entry) => entry.value != null),
-    );
-  }
+// A dictionary type alias for `Map<K, V>`.
+typedef Dictionary<K, V> = Map<K, V>;
 
-  /// Returns a new map with keys and values swapped
-  Map<V, K> get inverted {
-    return Map<V, K>.fromEntries(
-      entries.map((entry) => MapEntry(entry.value, entry.key)),
-    );
-  }
+// A key/value pair type alias for `MapEntry<K, V>`.
+typedef KVPair<K, V> = MapEntry<K, V>;
 
-  /// Returns a new map with only the specified keys
-  Map<K, V> pick(List<K> keys) {
-    return Map<K, V>.fromEntries(
-      entries.where((entry) => keys.contains(entry.key)),
-    );
-  }
+extension MapExtensions<K, V> on Dictionary<K, V> {
+  /// Returns a new map containing only entries with non-null values.
+  Dictionary<K, V> removeNullValues() => Dictionary<K, V>.fromEntries(
+      entries.where((KVPair<K, V> e) => e.value != null));
 
-  /// Returns a new map without the specified keys
-  Map<K, V> omit(List<K> keys) {
-    return Map<K, V>.fromEntries(
-      entries.where((entry) => !keys.contains(entry.key)),
-    );
-  }
+  /// Returns a new map where each key and value are swapped.
+  Dictionary<V, K> get inverted => Dictionary<V, K>.fromEntries(
+      entries.map((KVPair<K, V> e) => KVPair(e.value, e.key)));
+
+  /// Returns a new map containing only the entries with the specified [keys].
+  Dictionary<K, V> pick(List<K> keys) => Dictionary<K, V>.fromEntries(
+      entries.where((KVPair<K, V> e) => keys.contains(e.key)));
+
+  /// Returns a new map without the entries for the specified [keys].
+  Dictionary<K, V> omit(List<K> keys) => Dictionary<K, V>.fromEntries(
+      entries.where((KVPair<K, V> e) => !keys.contains(e.key)));
 }

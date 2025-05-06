@@ -4,11 +4,11 @@ import 'package:core_utils/core_utils.dart';
 void main() {
   group('IntExtensions', () {
     test('duration getters', () {
-      expect(500.milliseconds, Duration(milliseconds: 500));
-      expect(2.seconds, Duration(seconds: 2));
-      expect(3.minutes, Duration(minutes: 3));
-      expect(4.hours, Duration(hours: 4));
-      expect(5.days, Duration(days: 5));
+      expect(500.milliseconds, const Duration(milliseconds: 500));
+      expect(2.seconds, const Duration(seconds: 2));
+      expect(3.minutes, const Duration(minutes: 3));
+      expect(4.hours, const Duration(hours: 4));
+      expect(5.days, const Duration(days: 5));
     });
 
     test('isEven and isOdd', () {
